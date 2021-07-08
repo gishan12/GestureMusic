@@ -5,7 +5,8 @@ import cv2
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
 
-
+# Function takes in the all the coordinates for all the points, selects the relevants tracking point 
+# and OUTPUTS the average of all the markers in the xy plane (get centre of hand)
 def get_params(hand_landmarks):
     points = {}
     parameters = ['INDEX_TIP', 'WRIST', 'MIDDLE_FINGER', 'RING_FINGER', 'PINKY_FINGER', 'THUMB']
@@ -30,7 +31,8 @@ def get_params(hand_landmarks):
 
     return [hand_x_value, hand_y_value]
 
-
+#inputs the x,y for the centre of the hand 
+# Outputs the discrete/ qualitative position of the centre of the hand 
 def gridify(xy_array):
     x = xy_array[0]
     y = xy_array[1]
@@ -43,13 +45,16 @@ def gridify(xy_array):
     else:
         return 'Top right'
 
-
+# Inputs x,y values that are bothh in the range [0,1]
+# Outputs absolute x,y positionn by multiplyinng the ratios by image dimensions to get the pixels where to place stuff
 def ratio_to_pixel(coordinates, image_shape):
     rows, cols, _ = image_shape
     if coordinates is None:
         return None
     return np.array(coordinates) * np.array([int(cols), int(rows)])
 
+# takes the image frame, coordinates [x,y] in absolute and the classification 
+# outputs the image with the text appearinng at the absolute coordinates
 
 def label_params(frame, coordinates, text):
     if coordinates is None:
