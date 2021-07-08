@@ -34,17 +34,23 @@ with mp_hands.Hands(
 
         if results.multi_hand_landmarks:
             for hand_landmarks in results.multi_hand_landmarks:
-                # THIS IS ANGLES
+
                 coordinates = hp.get_params(hand_landmarks)
+                
+                # FOR ADVAIT !!! the points [x,y] come scaled [0,1] here so how could we run a small sound gennerating function on this?
+                
                 grid_values = hp.gridify(coordinates)
+                
+                # grid values just gives thhe discrete string based on coordiates ^ 
 
                 coordinates_absolute = hp.ratio_to_pixel(coordinates, image.shape)
-                print(coordinates_absolute)
-                # print(grid_values)
-                # print(coord[0])
+                
+                # FOR ADVAIT !!! the points [x,y] come in terms of pixels here so which [x,y] pair would be better? 
+                
             mp_drawing.draw_landmarks(
                 image, hand_landmarks, mp_hands.HAND_CONNECTIONS)
             hp.label_params(image, coordinates_absolute, grid_values)
+            # the functions above are responsible for adding the markers and the text to the image in that order.
         cv2.imshow('MediaPipe Hands', image)
         if cv2.waitKey(5) & 0xFF == 27:
             break
