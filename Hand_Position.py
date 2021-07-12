@@ -37,13 +37,13 @@ def gridify(xy_array):
     x = xy_array[0]
     y = xy_array[1]
     if x >= 0.5 and y > 0.5:
-        return 'Bottom right'
+        return 'Bottom Right'
     elif x < 0.5 and y >= 0.5:
-        return 'Bottom left'
+        return 'Bottom Left'
     elif x < 0.5 and y < 0.5:
-        return 'Top left'
+        return 'Top Left'
     else:
-        return 'Top right'
+        return 'Top Right'
 
 # Inputs x,y values that are bothh in the range [0,1]
 # Outputs absolute x,y positionn by multiplyinng the ratios by image dimensions to get the pixels where to place stuff
@@ -63,3 +63,17 @@ def label_params(frame, coordinates, text):
     # print(centre of hand)
     cv2.putText(frame, text, (int(coordinates[0]), int(coordinates[1])),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+
+
+
+# Inputs Grid Location as String (ie: 'Top Right')
+# Outputs Corresponding Note
+def location_to_note(location: str) -> str:
+    if location == 'Top Left':
+        return 'C'
+    elif location == 'Top Right':
+        return 'D'
+    elif location == 'Bottom Left':
+        return 'E'
+    else:
+        return 'F'
