@@ -8,3 +8,5 @@ pretty_midi
 music21
 musicalbeeps
 pygame
+pynput
+winsound
